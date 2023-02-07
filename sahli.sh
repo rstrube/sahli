@@ -321,10 +321,10 @@ function install() {
     arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
     echo_to_log "=================================="
-    echo_to_log "7. DE & audio system configuration"
+    echo_to_log "7. Compositor & audio system configuration"
     echo_to_log "=================================="
-    # Install all prereqs for labwc
-    arch-chroot /mnt pacman -S --noconfirm --needed \
+    # Install all prereqs for hyprland
+    arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar \
         xdg-user-dirs               `# Standard directories under home (e.g. Documents, Pictures, etc.)` \
         wlroots                     `# wlroots` \
         xorg-xwayland               `# Xwayland support` \
