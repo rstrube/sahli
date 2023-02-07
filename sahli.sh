@@ -146,11 +146,11 @@ function install() {
 
     # Install additional firmware and uCode
     if [[ "$AMD_CPU" == "true" ]]; then
-        arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar linux-firmware amd-ucode | tee -a "$LOG_FILES"
+        arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar linux-firmware amd-ucode | tee -a "$LOG_FILE"
         local MICROCODE="amd-ucode.img"
 
     elif [[ "$INTEL_CPU" == "true" ]]; then
-        arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar linux-firmware intel-ucode | tee -a "$LOG_FILES"
+        arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar linux-firmware intel-ucode | tee -a "$LOG_FILE"
         local MICROCODE="intel-ucode.img"
     fi
 
@@ -173,7 +173,7 @@ function install() {
 
     # Enable multilib
     arch-chroot /mnt sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-    arch-chroot /mnt pacman -Syyu --noprogressbar | tee -a "$LOG_FILES"
+    arch-chroot /mnt pacman -Syyu --noprogressbar | tee -a "$LOG_FILE"
 
     # Generate initial fstab using UUIDs
     genfstab -U /mnt > /mnt/etc/fstab
@@ -334,6 +334,7 @@ function install() {
         pamixer                     `# Commandline utility for controlling volume (PulseAudio)` \
         brightnessctl               `# Commandline utility for conrolling screen brightness ` \
         xdg-desktop-portal          `# Support for screensharing in pipewire for wlroots compositors` \
+        xdg-desktop-portal-wlr \
         polkit-kde-agent            `# Used to prompt for elevated credentials when neccessary` \
         slurp grim                  `# Commandline utils for: setting bg, idle handling, selecting display, and screenshots` \
         mako                        `# Notification daemon` \
@@ -421,7 +422,7 @@ function install() {
     # exec_as_user "paru -S --noconfirm --needed --noprogressbar xxx"
 
     # Install labwc and other important utilities via AUR
-    exec_as_user "paru -S --noconfirm --needed --noprogressbar hyprland xdg-desktop-portal-hyprland-git waybar-hyprland-git network-manager-applet ttf-nerd-fonts-symbols-1000-em | tee -a "$LOG_FILE""
+    exec_as_user "paru -S --noconfirm --needed --noprogressbar hyprland waybar-hyprland-git network-manager-applet ttf-nerd-fonts-symbols-1000-em | tee -a $LOG_FILE"
 
     # Install additional fonts to make everything look consistent
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
@@ -441,22 +442,6 @@ function install() {
     # Clone sagi git repo so that user can run post-install recipe
     arch-chroot -u $USER_NAME /mnt git clone https://github.com/rstrube/sahli.git /home/${USER_NAME}/sahli
 
-    # Copy default configuration files for labwc
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/labwc
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/labwc/rc.xml /home/${USER_NAME}/.config/labwc/.
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/labwc/menu.xml /home/${USER_NAME}/.config/labwc/.
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/labwc/autostart /home/${USER_NAME}/.config/labwc/.
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/labwc/environment /home/${USER_NAME}/.config/labwc/.
-
-    # Copy default configuration file for way-displays
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/way-displays
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/way-displays/cfg.yaml /home/${USER_NAME}/.config/way-displays/.
-
-    # Copy default configuration file and styling for waybar
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/waybar
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/waybar/config /home/${USER_NAME}/.config/waybar/.
-    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/waybar/style.css /home/${USER_NAME}/.config/waybar/.
-
     if [ -n "$LOG_FILE" ]; then
         cp ./${LOG_FILE} /mnt/home/${USER_NAME}/
     fi
@@ -467,7 +452,7 @@ function install() {
 function echo_to_log()
 {
     echo "$@" 
-    echo >> "${LOG_FILE}"
+    echo "$@" >> "$LOG_FILE"
 }
 
 function check_critical_prereqs() {
