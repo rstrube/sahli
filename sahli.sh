@@ -421,7 +421,7 @@ function install() {
     # exec_as_user "paru -S --noconfirm --needed --noprogressbar xxx"
 
     # Install labwc and other important utilities via AUR
-    exec_as_user "paru -S --noconfirm --needed --noprogressbar hyprland xdg-desktop-portal-hyprland-git waybar-hyprland-git network-manager-applet | tee -a "$LOG_FILE""
+    exec_as_user "paru -S --noconfirm --needed --noprogressbar hyprland xdg-desktop-portal-hyprland-git waybar-hyprland-git network-manager-applet ttf-nerd-fonts-symbols-1000-em | tee -a "$LOG_FILE""
 
     # Install additional fonts to make everything look consistent
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
