@@ -325,29 +325,35 @@ function install() {
     echo_to_log "=================================="
     # Install all prereqs for hyprland
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar \
-        xdg-user-dirs               `# Standard directories under home (e.g. Documents, Pictures, etc.)` \
-        wlroots                     `# wlroots` \
-        xorg-xwayland               `# Xwayland support` \
-        pipewire wireplumber        `# Pipewire and wireplumber session manager` \
-        pipewire-pulse              `# Pipewire drop in replacement for PulseAudio` \
-        pipewire-jack               `# Pipewire JACK support` \
-        xdg-desktop-portal          `# Support for screensharing in pipewire for wlroots compositors` \
+        xdg-user-dirs                       `# Standard directories under home (e.g. Documents, Pictures, etc.)` \
+        wlroots                             `# wlroots` \
+        xorg-xwayland                       `# Xwayland support` \
+        pipewire wireplumber                `# Pipewire and wireplumber session manager` \
+        pipewire-pulse                      `# Pipewire drop in replacement for PulseAudio` \
+        pipewire-jack                       `# Pipewire JACK support` \
+        xdg-desktop-portal                  `# Support for screensharing in pipewire for wlroots compositors` \
         xdg-desktop-portal-wlr \
-        hyprland \
-        polkit-kde-agent            `# Used to prompt for elevated credentials when neccessary` \
-        mako                        `# Notification daemon` \
-        qt5-wayland qt6-wayland     `# Explicit support for running Qt apps under wayland` \
-        kitty                       `# Kitty terminal` \
-        firefox                     `# Browser ` \
-        thunar                      `# Thunar file manager` \
-        gvfs                        `# Gnome Virtual Filesystem for additional mount support (smb,mtp, etc.)` \
-        thunar-archive-plugin       `# Additional thunar plugins` \
-        thunar-media-tags-plugin \
-        thunar-volman \
-        tumbler \
-        ttf-liberation              `# Liberation fonts` \
-        noto-fonts noto-fonts-emoji `# Noto fonts to support emojis` \
-        gst-plugin-pipewire         `# Additional GStreamer plugins` \
+        hyprland                            `# Hyprland` \
+        network-manager-applet              `# Network Manager Applet` \
+        polkit-kde-agent                    `# Used to prompt for elevated credentials when neccessary` \
+        mako                                `# Notification daemon` \
+        qt5-wayland qt6-wayland             `# Explicit support for running Qt apps under wayland` \
+        kitty                               `# Kitty terminal` \
+        firefox                             `# Browser ` \
+        kwallet kwallet-pam kwalletmanager  `# KWallet subsystem` \
+        dolphin dolphin-plugins ark         `# File manager and file preview plugins` \
+        kdenetwork-filesharing \
+        kdegraphics-thumbnailers \
+        kimageformats qt5-imageformats \
+        ffmpegthumbs taglib \
+        okular gwenview kwrite kcalc        `# Image and PDF viewer, text editor, and calculator` \
+        kcharselect                         `# Character map` \
+        partitionmanager                    `# Partition and disk manager` \
+        ksystemlog                          `# System log viewer` \
+        ttf-liberation                      `# Liberation fonts` \
+        noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
+        ttf-nerd-fonts-symbols-2048-em      `# Nerd Fonts` \
+        gst-plugin-pipewire                 `# Additional GStreamer plugins` \
         gst-libav \
         gst-plugins-base \
         gst-plugins-good \
@@ -420,7 +426,7 @@ function install() {
     # exec_as_user "paru -S --noconfirm --needed --noprogressbar xxx"
 
     # Install labwc and other important utilities via AUR
-    exec_as_user "paru -S --noconfirm --needed --noprogressbar hyprland waybar-hyprland-git network-manager-applet ttf-nerd-fonts-symbols-1000-em | tee -a $LOG_FILE"
+    exec_as_user "paru -S --noconfirm --needed --noprogressbar waybar-hyprland-git tofi | tee -a $LOG_FILE"
 
     # Install additional fonts to make everything look consistent
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
@@ -439,6 +445,10 @@ function install() {
     echo_to_log "========================================="
     # Clone sagi git repo so that user can run post-install recipe
     arch-chroot -u $USER_NAME /mnt git clone https://github.com/rstrube/sahli.git /home/${USER_NAME}/sahli
+
+    # Copy default configuration files for labwc
+    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/hypr
+    arch-chroot -u $USER_NAME /mnt cp /home/${USER_NAME}/sahli/config/hypr/hyprland.conf /home/${USER_NAME}/.config/hypr/.
 
     if [ -n "$LOG_FILE" ]; then
         cp ./${LOG_FILE} /mnt/home/${USER_NAME}/
