@@ -331,12 +331,10 @@ function install() {
         pipewire wireplumber        `# Pipewire and wireplumber session manager` \
         pipewire-pulse              `# Pipewire drop in replacement for PulseAudio` \
         pipewire-jack               `# Pipewire JACK support` \
-        pamixer                     `# Commandline utility for controlling volume (PulseAudio)` \
-        brightnessctl               `# Commandline utility for conrolling screen brightness ` \
         xdg-desktop-portal          `# Support for screensharing in pipewire for wlroots compositors` \
         xdg-desktop-portal-wlr \
+        hyprland \
         polkit-kde-agent            `# Used to prompt for elevated credentials when neccessary` \
-        slurp grim                  `# Commandline utils for: setting bg, idle handling, selecting display, and screenshots` \
         mako                        `# Notification daemon` \
         qt5-wayland qt6-wayland     `# Explicit support for running Qt apps under wayland` \
         kitty                       `# Kitty terminal` \
