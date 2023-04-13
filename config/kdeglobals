@@ -1,0 +1,11 @@
+[General]
+AccentColor=85,85,255
+ColorScheme=Layan
+TerminalApplication=kitty
+TerminalService=kitty.desktop
+
+[Icons]
+Theme=Papirus-Dark
+
+[KDE]
+widgetStyle=kvantum-dark
