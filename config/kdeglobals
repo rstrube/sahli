@@ -1,5 +1,4 @@
 [General]
-AccentColor=85,85,255
 ColorScheme=Layan
 TerminalApplication=kitty
 TerminalService=kitty.desktop
