@@ -333,6 +333,7 @@ function install() {
         pipewire-jack                       `# Pipewire JACK support` \
         xdg-desktop-portal                  `# Support for screensharing in pipewire for wlroots compositors` \
         xdg-desktop-portal-wlr \
+        grim slurp                          `# Import wayland utilties used for screenshots and monitor selection` \
         hyprland                            `# Hyprland` \
         network-manager-applet              `# Network Manager Applet` \
         polkit-kde-agent                    `# Used to prompt for elevated credentials when neccessary` \
@@ -365,25 +366,6 @@ function install() {
 
     # Generate standard XDG user directories
     arch-chroot -u $USER_NAME /mnt xdg-user-dirs-update
-
-    # Note: systemctl enable --user doesn't work via arch-chroot, performing manual creation of symlinks
-    # systemctl enable --user --now pipewire.service
-    # systemctl enable --user --now pipewire-pulse.service
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/systemd/user/default.target.wants
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/systemd/user/sockets.target.wants
-
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/pipewire.service /home/${USER_NAME}/.config/systemd/user/default.target.wants/pipewire.service
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/pipewire.socket /home/${USER_NAME}/.config/systemd/user/sockets.target.wants/pipewire.socket
-
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/pipewire-pulse.service /home/${USER_NAME}/.config/systemd/user/default.target.wants/pipewire-pulse.service
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/pipewire-pulse.socket /home/${USER_NAME}/.config/systemd/user/sockets.target.wants/pipewire-pulse.socket
-
-    # systemctl enable --user --now wireplumber.service
-    arch-chroot -u $USER_NAME /mnt mkdir -p /home/${USER_NAME}/.config/systemd/user/pipewire.service.wants
-
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/wireplumber.service /home/${USER_NAME}/.config/systemd/user/pipewire-session-manager.service
-    arch-chroot -u $USER_NAME /mnt ln -s /usr/lib/systemd/user/wireplumber.service /home/${USER_NAME}/.config/systemd/user/pipewire.service.wants/wireplumber.service
-
 
     echo_to_log "===================="
     echo_to_log "8. GPU Configuration"
@@ -425,8 +407,8 @@ function install() {
     # Install AUR packages
     # exec_as_user "paru -S --noconfirm --needed --noprogressbar xxx"
 
-    # Install labwc and other important utilities via AUR
-    exec_as_user "paru -S --noconfirm --needed --noprogressbar waybar-hyprland-git tofi | tee -a $LOG_FILE"
+    # Install other packages via AUR
+    exec_as_user "paru -S --noconfirm --needed --noprogressbar waybar-hyprland-git tofi qt5ct-kde layan-kde-git kvantum-theme-layan-git layan-gtk-theme-git | tee -a $LOG_FILE"
 
     # Install additional fonts to make everything look consistent
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
