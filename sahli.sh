@@ -325,7 +325,6 @@ function install() {
         qt5-wayland qt6-wayland             `# Explicit support for running Qt apps under wayland` \
         kitty                               `# Kitty terminal` \
         firefox                             `# Browser ` \
-        kwallet kwallet-pam kwalletmanager  `# KWallet subsystem` \
         dolphin dolphin-plugins ark         `# File manager and file preview plugins` \
         kdenetwork-filesharing \
         kdegraphics-thumbnailers \
@@ -335,6 +334,7 @@ function install() {
         kcharselect                         `# Character map` \
         partitionmanager                    `# Partition and disk manager` \
         ksystemlog                          `# System log viewer` \
+        gnome-keyring seahorse              `# Gnome keyring and UI to handle libsecret clients` \
         ttf-liberation                      `# Liberation fonts` \
         noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
         ttf-nerd-fonts-symbols              `# Nerd Fonts` \
