@@ -1,5 +1,5 @@
 [General]
-ColorScheme=Layan
+ColorScheme=Breeze Dark
 TerminalApplication=kitty
 TerminalService=kitty.desktop
 
@@ -7,4 +7,5 @@ TerminalService=kitty.desktop
 Theme=Papirus-Dark
 
 [KDE]
-widgetStyle=kvantum-dark
+LookAndFeelPackage=org.kde.breezedark.desktop
+widgetStyle=Breeze

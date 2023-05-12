@@ -338,6 +338,7 @@ function install() {
         ttf-liberation                      `# Liberation fonts` \
         noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
         ttf-nerd-fonts-symbols              `# Nerd Fonts` \
+        papirus-icon-theme                  `# Excellent icon theme with incredible coverage` \
         gst-plugin-pipewire                 `# Additional GStreamer plugins` \
         gst-libav \
         gst-plugins-base \
@@ -392,7 +393,7 @@ function install() {
     # exec_as_user "paru -S --noconfirm --needed --noprogressbar xxx"
 
     # Install other packages via AUR
-    exec_as_user "paru -S --noconfirm --needed --noprogressbar waybar-hyprland-git tofi qt5ct-kde layan-kde-git kvantum-theme-layan-git layan-gtk-theme-git | tee -a $LOG_FILE"
+    exec_as_user "paru -S --noconfirm --needed --noprogressbar tofi qt5ct-kde | tee -a $LOG_FILE"
 
     # Install additional fonts to make everything look consistent
     arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
