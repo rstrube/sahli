@@ -395,9 +395,6 @@ function install() {
     # Install other packages via AUR
     exec_as_user "paru -S --noconfirm --needed --noprogressbar tofi qt5ct-kde | tee -a $LOG_FILE"
 
-    # Install additional fonts to make everything look consistent
-    arch-chroot /mnt pacman -S --noconfirm --needed --noprogressbar ttf-roboto ttf-roboto-mono | tee -a "$LOG_FILE"
-    
     echo_to_log "==========================="
     echo_to_log "10. Additional pacman hooks"
     echo_to_log "==========================="
