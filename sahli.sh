@@ -337,7 +337,7 @@ function install() {
         ksystemlog                          `# System log viewer` \
         ttf-liberation                      `# Liberation fonts` \
         noto-fonts noto-fonts-emoji         `# Noto fonts to support emojis` \
-        ttf-nerd-fonts-symbols-2048-em      `# Nerd Fonts` \
+        ttf-nerd-fonts-symbols              `# Nerd Fonts` \
         gst-plugin-pipewire                 `# Additional GStreamer plugins` \
         gst-libav \
         gst-plugins-base \
