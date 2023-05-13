@@ -352,6 +352,9 @@ function install() {
     # Generate standard XDG user directories
     arch-chroot -u $USER_NAME /mnt xdg-user-dirs-update
 
+    # TODO: update /etc/pam.d/login to automatically unlock gnome-keyring
+    # ...
+    
     echo_to_log "===================="
     echo_to_log "8. GPU Configuration"
     echo_to_log "===================="
